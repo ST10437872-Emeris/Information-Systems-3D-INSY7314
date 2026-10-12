@@ -1,0 +1,11 @@
+const router=require('express').Router();
+const auth=require('../middleware/authMiddleware');
+const role=require('../middleware/roleMiddleware');
+const v=require('../middleware/validationMiddleware');
+const c=require('../controllers/bookingController');
+router.use(auth);
+router.post('/',role('Client'),v.bookingCreate,c.createBooking);
+router.get('/transactions',role('Client','Freelancer'),c.listTransactions);
+router.get('/',role('Client','Freelancer'),c.listBookings);
+router.get('/:id',role('Client','Freelancer'),c.getBooking);
+module.exports=router;

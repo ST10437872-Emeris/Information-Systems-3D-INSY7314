@@ -1,0 +1,10 @@
+$kind: http-request
+method: POST
+url: '{{base_url}}/api/bookings'
+order: 1000
+body:
+  type: json
+  content: |-
+    {
+      "gigId": "{{gig_id}}"
+    }

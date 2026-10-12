@@ -1,0 +1,13 @@
+$kind: http-request
+method: PUT
+url: '{{base_url}}/api/gigs/:id'
+order: 4000
+pathVariables:
+  - key: id
+    value: '{{gig_id}}'
+body:
+  type: json
+  content: |-
+    {
+      "price": 1800
+    }

@@ -1,0 +1,11 @@
+### Health
+GET http://localhost:5000/api/health
+
+### Public gigs
+GET http://localhost:5000/api/gigs
+
+### Register a client (change email for each run)
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{"name":"Sample Client","email":"client.demo@example.test","password":"ExamplePassword!123","role":"Client"}

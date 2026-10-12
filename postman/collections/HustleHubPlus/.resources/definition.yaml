@@ -1,0 +1,15 @@
+$kind: collection
+name: HustleHubPlus
+description: 'HustleHub+ API: health check, authentication, gigs, and bookings'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+variables:
+  - key: base_url
+    value: 'http://localhost:5000'
+  - key: auth_token
+    value: ''
+  - key: gig_id
+    value: '6aca8e3e10715e1c3e9725a2'

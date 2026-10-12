@@ -1,0 +1,6 @@
+import {useEffect,useState} from 'react';
+import {Users,BriefcaseBusiness,CalendarDays,ReceiptText,Shield} from 'lucide-react';
+import {PageHeading,ErrorNotice} from '../components/Layout';
+import {api} from '../lib/api';
+import {useAuth} from '../context/AuthContext';
+export function Admin(){const {token}=useAuth();const [summary,setSummary]=useState(null);const [error,setError]=useState('');useEffect(()=>{api('/admin/summary',{token}).then(setSummary).catch(e=>setError(e.message))},[token]);return <div className="container page-section"><PageHeading eyebrow="ADMINISTRATION" title="Marketplace overview." description="Read-only, administrator-only overview of marketplace activity."/><ErrorNotice message={error}/><div className="stat-grid admin-grid">{[[Users,'Registered members','users'],[BriefcaseBusiness,'Active gigs','gigs'],[CalendarDays,'Bookings','bookings'],[ReceiptText,'Simulated transactions','transactions']].map(([Icon,label,key])=><div className="stat-card" key={key}><Icon/><span>{label}</span><strong>{summary?.[key]??'—'}</strong></div>)}</div><div className="notice notice-info"><Shield size={18}/> Administrator access is restricted to this read-only dashboard. Client and freelancer personal records remain protected by role-based endpoints.</div></div>}

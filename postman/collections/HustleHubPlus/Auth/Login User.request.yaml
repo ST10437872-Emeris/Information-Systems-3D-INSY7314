@@ -1,0 +1,24 @@
+$kind: http-request
+method: POST
+url: '{{base_url}}/api/auth/login'
+order: 2000
+auth:
+  type: noauth
+body:
+  type: json
+  content: |-
+    {
+      "email": "user@example.com",
+      "password": "TestPass123!"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200) {
+        const body = pm.response.json();
+        if (body.token) {
+          pm.environment.set('auth_token', body.token);
+          console.log('auth_token saved for:', body.user?.email, '| role:', body.user?.role);
+        }
+      }

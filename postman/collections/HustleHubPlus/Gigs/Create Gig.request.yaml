@@ -1,0 +1,13 @@
+$kind: http-request
+method: POST
+url: '{{base_url}}/api/gigs'
+order: 1000
+body:
+  type: json
+  content: |-
+    {
+      "title": "Website Development",
+      "description": "Responsive website development for small businesses.",
+      "category": "Web Development",
+      "price": 1500
+    }

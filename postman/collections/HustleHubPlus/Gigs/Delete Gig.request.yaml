@@ -1,0 +1,7 @@
+$kind: http-request
+method: DELETE
+url: '{{base_url}}/api/gigs/:id'
+order: 5000
+pathVariables:
+  - key: id
+    value: '{{gig_id}}'

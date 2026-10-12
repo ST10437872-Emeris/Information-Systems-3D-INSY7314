@@ -1,0 +1,12 @@
+const router=require('express').Router();
+const auth=require('../middleware/authMiddleware');
+const role=require('../middleware/roleMiddleware');
+const v=require('../middleware/validationMiddleware');
+const c=require('../controllers/gigController');
+router.get('/',c.listGigs);
+router.get('/mine/all',auth,role('Freelancer'),c.mine);
+router.get('/:id',c.getGig);
+router.post('/',auth,role('Freelancer'),v.gigCreate,c.createGig);
+router.put('/:id',auth,role('Freelancer'),v.gigUpdate,c.updateGig);
+router.delete('/:id',auth,role('Freelancer'),c.deleteGig);
+module.exports=router;

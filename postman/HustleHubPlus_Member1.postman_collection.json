@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "HustleHubPlus Member 1 API Collection",
+    "description": "Postman API collection for Member 1 backend functionality including Authentication, Gigs, Bookings, Transactions, and Security tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "freelancerToken", "value": "" },
+    { "key": "clientToken", "value": "" },
+    { "key": "gigId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register Freelancer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Freelancer\",\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"Freelancer\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Register Client",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sarah Client\",\n  \"email\": \"sarah@example.com\",\n  \"password\": \"Password123!\",\n  \"role\": \"Client\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gigs",
+      "item": [
+        {
+          "name": "List Gigs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/gigs", "host": ["{{baseUrl}}"], "path": ["api", "gigs"] }
+          }
+        },
+        {
+          "name": "Get Gig",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/gigs/{{gigId}}", "host": ["{{baseUrl}}"], "path": ["api", "gigs", "{{gigId}}"] }
+          }
+        },
+        {
+          "name": "Create Gig",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{freelancerToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Logo Design\",\n  \"description\": \"Professional logo design for your business.\",\n  \"category\": \"Design\",\n  \"price\": 500\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/gigs", "host": ["{{baseUrl}}"], "path": ["api", "gigs"] }
+          }
+        },
+        {
+          "name": "Update Gig",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{freelancerToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 650\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/gigs/{{gigId}}", "host": ["{{baseUrl}}"], "path": ["api", "gigs", "{{gigId}}"] }
+          }
+        },
+        {
+          "name": "Delete Gig",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{freelancerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/gigs/{{gigId}}", "host": ["{{baseUrl}}"], "path": ["api", "gigs", "{{gigId}}"] }
+          }
+        },
+        {
+          "name": "My Gigs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{freelancerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/gigs/mine/all", "host": ["{{baseUrl}}"], "path": ["api", "gigs", "mine", "all"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{clientToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gigId\": \"{{gigId}}\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/bookings", "host": ["{{baseUrl}}"], "path": ["api", "bookings"] }
+          }
+        },
+        {
+          "name": "List Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clientToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/bookings", "host": ["{{baseUrl}}"], "path": ["api", "bookings"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{freelancerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/bookings/transactions", "host": ["{{baseUrl}}"], "path": ["api", "bookings", "transactions"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Security",
+      "item": [
+        {
+          "name": "Client Cannot Create Gig",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{clientToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Unauthorized Gig\",\n  \"description\": \"Client trying to create gig\",\n  \"category\": \"Test\",\n  \"price\": 100\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/gigs", "host": ["{{baseUrl}}"], "path": ["api", "gigs"] }
+          }
+        },
+        {
+          "name": "Invalid JWT",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer invalid_token_123" }],
+            "url": { "raw": "{{baseUrl}}/api/bookings", "host": ["{{baseUrl}}"], "path": ["api", "bookings"] }
+          }
+        },
+        {
+          "name": "Missing JWT",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/bookings", "host": ["{{baseUrl}}"], "path": ["api", "bookings"] }
+          }
+        },
+        {
+          "name": "Freelancer Cannot Modify Another User's Gig",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{freelancerToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 9999\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/gigs/650000000000000000000000", "host": ["{{baseUrl}}"], "path": ["api", "gigs", "650000000000000000000000"] }
+          }
+        }
+      ]
+    }
+  ]
+}
